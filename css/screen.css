@@ -8,10 +8,26 @@
 
 :root {
     /* colors */
+    --global-color-light: #CCE7FF;
+    --global-color-dark: #0F3557;
+    --global-color-dark-opague:#0f355799; /* overbodig */
+
+    --global-color-front: var(--global-color-dark);
+    --global-color-back: var(--global-color-light);
+
 
     /* opacity */
+    --global-muted-opacity: 0.6;
 
     /* transitions */
+
+    /* padding */
+    --global-whitespace: 8px;
+}
+
+.is-night{
+    --global-color-front: var(--global-color-light);
+    --global-color-back: var(--global-color-dark)
 }
 
 /*------------------------------------*\
@@ -27,10 +43,13 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'Work Sans', Helvetica, arial, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    color: var(--global-color-front);
+    background-color: var(--global-color-back);
 }
 
 *,
@@ -249,7 +268,11 @@ input::placeholder {
 */
 
 .c-logo {
-
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
 }
 
 /*
@@ -259,11 +282,12 @@ input::placeholder {
 */
 
 .c-sun {
-
+    width: 22px;
+    fill: var(--global-color-front);
 }
 
 .c-logo .c-sun {
-
+    margin-right: var(--global-whitespace);
 }
 
 /*
@@ -272,11 +296,87 @@ input::placeholder {
     Main app wrapper
 */
 
+.c-app{
+    margin: auto; /* centreren */
+    padding: 2em; /* 32 / 16 = 2*/
+    max-width: 29em; /* (400 / 16px = 25em) + padding (2 * 2em) */;
+
+    /*mogelijk via span toe te voegen*/
+    /*
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    */
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.c-app__summary{
+    font-size: 28px;
+    line-height: 40px;
+}
+
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+
+.c-horizon{
+    margin-bottom: 2em /* 32 / 16px = 2*/;
+
+    margin-top: auto; /*om naar bodem te duwen*/
+}
+
+.c-horizon__sky-wrapper{
+    position: relative;
+    height: 200px;
+    overflow: hidden; /* alles buiten wordt verborgen*/
+    padding: 23px 40px 0 0; /*zorgt dat element binnen left en top 100 nog getoont worden*/
+}
+
+.c-horizon__sky{
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun::before{
+    content: attr(data-time);
+    font-size: 12px;
+    line-height: 16px;
+    display: block; /*boven elkaar*/
+    margin-bottom: var(--global-whitespace);
+}
+
+.c-horizon__sun{
+    display: flex;
+    flex-direction: column;
+    align-items: center;/*centeren elementen*/
+
+    text-align: center; /*centeren text (ander aligned text links)*/
+    width: 40px;
+    position: absolute;
+
+    transform: translateY(23px); /*naar beneden duwen*/
+}
+
+.c-horizon__line{
+    border-top: 1px solid var(--global-color-front);
+    padding-top: var(--global-whitespace);
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-horizon__time{
+    font-size: 12px;
+    line-height: 16px;
+}
+
 
 /*------------------------------------*\
 #UTILITIES
@@ -286,6 +386,10 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+
+.u-muted{
+    opacity: var(--global-muted-opacity);
+}
 
 /*------------------------------------*\
 #STATES
